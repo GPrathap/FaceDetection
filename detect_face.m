@@ -7,8 +7,7 @@
     [ I,H, W ]=convertImageIntoDoublePrecision( img );
     [ R,G,B ] = getRGBVector(I);
     [ grayImg ]=im2double(edge(grayImg,'roberts'));
-    [ S ] = selectSkinColor( I, mixBound_Cr, maxBound_Cr, H, W);
-    [ SN ]=imadd(S,grayImg);
+    [ S,Cr ] = selectSkinColor( I, mixBound_Cr, maxBound_Cr, H, W, grayImg);
     [ SN ] = reduceNoiseOfImage( SN, H, W);
     [ SN ]=separateIntoIndividualRegions(SN,segmentSize);
     figure,imshow(SN);
