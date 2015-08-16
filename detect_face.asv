@@ -1,16 +1,20 @@
 
 %function []=detect_face(img)
-    img ='./images/img3.jpg';
+    img ='./images/img1.jpg';
     img=imread(img);
-    mixBound_Cr=12;maxBound_Cr=29,segmentSize=180;
+    %cr max and min bound can change
+    mixBound_Cr=12;maxBound_Cr=29,segmentSize=220;
     [grayImg,r,c]=checkAndConvertToGrayImage( img );
     [ I,H, W ]=convertImageIntoDoublePrecision( img );
     [ R,G,B ] = getRGBVector(I);
-    [ grayImg ]=im2double(edge(grayImg,'roberts'));
+    [grayImg]=edge(grayImg,'roberts');
+    im2double(grayImg)
     [ S ] = selectSkinColor( I, mixBound_Cr, maxBound_Cr, H, W);
-    [ SN ]=imadd(S,grayImg);
-    [ SN ] = reduceNoiseOfImage( SN, H, W);
+    %figure,imshow(S);
+    [ SN ] = reduceNoiseOfImage( S, H, W);
+    %figure,imshow(SN);
     [ SN ]=separateIntoIndividualRegions(SN,segmentSize);
-    figure,imshow(SN);
+    
+    figure,imshow(I);
     
 %end
